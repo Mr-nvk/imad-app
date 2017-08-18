@@ -56,7 +56,7 @@ var htmltemplate=`
 
    return htmltemplate; 
     
-`;}
+`}
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
