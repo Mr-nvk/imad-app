@@ -24,7 +24,7 @@ var articles = {
                 This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
     </p>`
 },
-articleTwo: { title: 'article 2 , naveen',
+    articleTwo: { title: 'article 2 , naveen',
     heading: 'artile two',
     date: 'sep 12, 2017',
     content: `
@@ -39,7 +39,7 @@ articleTwo: { title: 'article 2 , naveen',
             <p>
                 This is pta nhi 
             </p>`},
-articleThree: {}
+    articleThree: {}
 };
 function createTemplate (data) {
     var title = data.title;
@@ -79,8 +79,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function(req,res){
-    res.send(createTemplate(articleOne));
+app.get('/:articleName', function(req,res){
+    res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/article-two', function(req,res){
