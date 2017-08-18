@@ -5,60 +5,6 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone={
-    
-    title:'Article Naveen',
-    heading:'article one',
-    date:'aug 18, 2017',
-    content:`<p>
-                
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>
-            
-            <p>
-                
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>
-            
-            <p>
-                
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>`
-};
-
-function ct(data){
-    
-    var title=data.title;
-    var date=data.date;
-    var heading=data.heading;
-    var content=data.content;
-
-var htmltemplate=`
-    <html>
-    <head>
-    <title>
-        ${title}
-    </title>
-     <link href="/ui/style.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="container">
-        <div><a href="/">home</a></div>
-        <hr>
-        <h3>${heading}</h3> 
-        <div>${date}</div>
-        <div>
-           ${content}
-        </div>
-        </div>
-        </body>
-</html>
-
-   return htmltemplate; 
-    
-`;
-}
-
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
