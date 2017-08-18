@@ -10,19 +10,19 @@ var articles = {
     title: 'article one naveen',
     date: 'sep 5, 2017',
     heading: 'article one',
-    content: 
-    `<p>
+    content:` 
+    <p>
                 
                 This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>`
+    </p>
             
-            `<p>
+    <p>
                 
                 This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>
-            <p>
+    </p>
+    <p>
                 This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-            </p>`
+    </p>`
 },
 articleTwo: { title: 'article 2 , naveen',
     heading: 'artile two',
