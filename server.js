@@ -22,7 +22,7 @@ var articles = {
     </p>
     <p>
                 This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-    </p>`
+    </p>
 },
     'article-two': { title: 'article 2 , naveen',
     heading: 'artile two',
