@@ -1,7 +1,7 @@
 console.log('Loaded!');
 
 var element=document.getElementById('main-text');
-element.innerHTML='new value';
+element.innerHTML='I am ak47';
 
 var img=document.getElementById('madi');
 var marginLeft=0;
