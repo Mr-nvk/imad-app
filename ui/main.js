@@ -1,15 +1,30 @@
 console.log('Loaded!');
 
+
 var element=document.getElementById('main-text');
+
 element.innerHTML='I am ak47';
 
+
+
 var img=document.getElementById('madi');
+
 var marginLeft=0;
-function moveRight() {
-    marginLeft = marginLeft +2;
-    img.style.marginLeft = marginLeft + 'px';
+
+function moveRight()
+{
+
+    marginLeft = marginLeft + 5;
+ 
+    log.style.marginLeft = marginLeft + 'px';
+
 }
+
 img.onclick=function()
 {
-   var interval = setInterval(moveRight, 10);
+    
+    
+	var inrerval = setInterval(moveRight,50);
+    
+
 };
