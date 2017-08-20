@@ -16,7 +16,7 @@ function moveRight()
 
     marginLeft = marginLeft + 5;
  
-    log.style.marginLeft = marginLeft + 'px';
+    img.style.marginLeft = marginLeft + 'px';
 
 }
 
