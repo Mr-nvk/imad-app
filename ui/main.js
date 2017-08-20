@@ -7,4 +7,4 @@ var img=document.getElementById('madi');
 img.onclick=function(){
     img.style.mrginleft='100px';
     
-}
+};
