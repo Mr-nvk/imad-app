@@ -11,7 +11,7 @@ button.onclick = function () {
                     span.innerHTML = counter.toString();
                 }
         }
-    }
+    };
     request.open('GET','http://naveenkumawat19952.imad.hasura-app.io/counter',true);
     request.send(null);
 };
