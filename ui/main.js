@@ -6,7 +6,7 @@ button.onclick = function () {
     request.onreadystatechange = function() {
         if(request.readyState === XMLHttpRequest.Done) {
                 if(request.status === 200){
-                    var counter= request.responseText;
+                    var counter = request.responseText;
                     var span = document.getElementById('count');
                     span.innerHTML = counter.toString();
                 }
@@ -17,7 +17,7 @@ button.onclick = function () {
 };
 
 
-var submit = document.getElementById('submit_btn');
+/*var submit = document.getElementById('submit_btn');
 submit.onclick = function() {
     
    var request = new XMLHttpRequest();
@@ -40,4 +40,4 @@ submit.onclick = function() {
 var name = nameInput.value;
     request.open('GET','http://naveenkumawat19952.imad.hasura-app.io/submit-name?name=' + name,true);
     request.send(null);
-};
+};*/
