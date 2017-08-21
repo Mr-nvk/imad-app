@@ -15,3 +15,11 @@ button.onclick = function () {
     request.open('GET','http://naveenkumawat19952.imad.hasura-app.io/counter',true);
     request.send(null);
 };
+
+var nameInput = document.getElemnetById('name');
+var name = nameInput.value;
+var submit = document.getElementById('submit_btn');
+submit.onclick = function() {
+    
+    
+};
