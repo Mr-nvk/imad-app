@@ -7,7 +7,7 @@ var config = {
     database:'naveenkumawat19952',
     host:'db.io.hasura-app.io',
     port:'5432',
-    password: DB_PASSWORD
+    password: process.env.DB_PASSWORD
 };
 var app = express();
 app.use(morgan('combined'));
