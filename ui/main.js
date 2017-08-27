@@ -7,7 +7,6 @@ submit.onclick = function() {
     request.onreadystatechange = function() {
         if(request.readystate === XMLHttpRequest.Done) {
                 if(request.status === 200){
-                    console.log('user logged in');
                     alert('logged in successfully');
                 }else if(request.status === 403) {
                     alert('username/password is incorrect');
@@ -15,7 +14,6 @@ submit.onclick = function() {
                     alert('something went wrong on the server');
                 }
                 }
-        }
     };
     var usernamet=document.getElementById('username').value;
     var password=document.getElementById('password').value;
@@ -23,5 +21,5 @@ submit.onclick = function() {
     console.log(password);
     request.open('POST','http://naveenkumawat19952.imad.hasura-app.io/submit-name?name=' + name,true);
     request.setRequestHeader('content-Type', 'application/json');
-    request.send(JSON.stringify({username:username,password:password}));
+    
 };
