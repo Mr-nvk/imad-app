@@ -13,6 +13,7 @@ var config = {
 };
 var app = express();
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 var articles = {
     'article-one': {
@@ -97,6 +98,24 @@ function hash(input,salt){
 app.get('/hash/:input', function(req,res){
     var hashedString = hash (req.params.input,'this-is-some-random-string');
     res.send(hashedString);
+});
+
+app.post('/create-user', function(req,res){
+   
+   //json
+   var user=req.body.user;
+   var pass=req.body.pass;
+   var salt=crypto.getRandomBytes(128).toString('hex');
+   var dbString=hash(pass,salt); 
+   pool.query('INSERT INTO "client"(user,pass) VALUES($1,$2)', [user,dbString],function(err,result){
+        if(err){
+           res.status("user successfully reated"+user);         
+       }
+       
+       else{
+           res.send(JSON.stringify(result.rows));
+       }
+   });
 });
 
 var pool = new Pool(config); 
