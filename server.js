@@ -49,7 +49,7 @@ var articles = {
                 This is pta nhi 
             </p>`},
     'article-three': {}
-};
+};   
 function createTemplate (data) {
     var title = data.title;
     var date = data.date;
