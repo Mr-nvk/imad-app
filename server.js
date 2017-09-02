@@ -107,13 +107,13 @@ app.post('/create-user', function(req,res){
    var pass=req.body.pass;
    var salt=crypto.getRandomBytes(128).toString('hex');
    var dbString=hash(pass,salt); 
-   pool.query('INSERT INTO "client"(user,pass) VALUES($1,$2)', [user,dbString],function(err,result){
-        if(err){
-           res.status("user successfully reated"+user);         
+   pool.query('INSERT INTO "client"(user,pass) VALUES($1,$2)', [user, dbString], function(err, result){
+        if(err) {
+           res.status(500).send(err.toString());         
        }
        
        else{
-           res.send(JSON.stringify(result.rows));
+           res.send('user successfully created:'  + user);
        }
    });
 });
