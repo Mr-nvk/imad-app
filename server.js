@@ -1,193 +1,67 @@
 var express = require('express');
-var morgan = require('morgan');
+var morgan =  require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 
 var config = {
-    user:'naveenkumawat19952',
-    database:'naveenkumawat19952',
-    host:'db.imad.hasura-app.io',
-    port:'5432',
+    user: 'naveenkumawat19952',
+    database: 'naveenkumawat19952',
+    host: 'db.imad.hasura-app.io',
+    port: '5432',
     password: process.env.DB_PASSWORD
 };
+
 var app = express();
 app.use(morgan('combined'));
-app.use(bodyParser.json());
 
-var articles = {
-    'article-one': {
-    title: 'article one naveen',
-    date: 'sep 5, 2017',
-    heading: 'article one',
-    content:` 
-    <p>
-                
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-    </p>
-            
-    <p>
-                
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-    </p>
-    <p>
-                This is the content for my last article. This is the content for my last article This is the content for my last article This is the content for my last article
-    </p>`
-},
-    'article-two': { title: 'article 2 , naveen',
-    heading: 'artile two',
-    date: 'sep 12, 2017',
-    content: `
-    <p>
-                
-                This is the second article
-            </p>
-            
-            <p>
-                
-                This is my 222222222222222
-            <p>
-                This is pta nhi 
-            </p>`},
-    'article-three': {}
-};   
-function createTemplate (data) {
+`function createTemplate (data) {
     var title = data.title;
-    var date = data.date;
-    var heading = data.heading;
+    var date = date.heading;
+    var heading = data.content;
     var content = data.content;
-    var htmlTemplate = `<html>
-    <head>
-    <title>
-        ${title}
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scal=1" />
-    <link href="/ui/style.css" rel="stylesheet" />
-    <body>
-        <div class="container">
-            <div>
-                <a href="/">home</a>
-            </div>
-        <hr>
-        <h3>
-            ${heading}
-        </h3>
-        <div>
-            ${date}
-        </div>
-        <div>
-            ${content}
-        </div>
-        </div>
-    </body>
-</html>
-`;
-return htmlTemplate;
-}
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+    
+    var htmlTemplate = `
+    <html>
+        <head>
+            <title>
+                ${title}
+            </title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href="/ui/style.css" rel="stylesheet" />
+            </head>
+            <body>
+                <div class="container">
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <hr/>
+                    <h3>
+                        ${heading}
+                    <h3>
+                    
+app.get('/', function(req, res) {
+   res.sendFile(path.join(__dirname, 'ui', 'index.html')); 
 });
-
-function hash(input,salt){
-    var hashed = crypto.pbkdf2Sync(input, salt, 10000,512, 'sha512' );
-    return ["pbkdf2","10000",salt,hashed.toString('hex')].join('@');
+function hash (input, salt) {
+    var hashed = crypto.pbkdf25Sync(input, salt, 10000, 512, 'sha512');
 }
 
-
-app.get('/hash/:input', function(req,res){
-    var hashedString = hash (req.params.input,'this-is-some-random-string');
+app.get('/hash/:input', function(req, res) {
+    var hashedString = hash(req.params.input);
     res.send(hashedString);
 });
 
-app.post('/create-user', function(req,res){
-   
-   //json
-   var user=req.body.user;
-   var pass=req.body.pass;
-   var salt=crypto.getRandomBytes(128).toString('hex');
-   var dbString=hash(pass,salt); 
-   pool.query('INSERT INTO "client"(user,pass) VALUES($1,$2)', [user, dbString], function(err, result){
+var pool = new Pool(config);
+app.get('/test-db", function(req, res) {
+    pool.querry('SELECT * FROM test', function(err, result) {
         if(err) {
-           res.status(500).send(err.toString());         
-       }
-       
-       else{
-           res.send('user successfully created:'  + user);
-       }
-   });
-});
-
-var pool = new Pool(config); 
-
-app.get('/test-db', function(req,res){
-    //return a response
-   pool.query('SELECT *  FROM test', function(err,result){
-       if(err){
-           res.status(500).send(err.toString())
-;         
-       }
-       
-       else{
-           res.send(JSON.stringify(result.rows));
-       }
-   }) ;
-} );
-
-var counter=0;
-app.get('/counter',function(req , res){
-    counter = counter+1;
-    res.send(counter.toString());
-    
-});
-
-var names = []; 
-app.get('/submit-name',function(req,res){
-    var name = req.query.name;
-    
-    names.push(name);
-    
-    res.send(JSON.stringify(names));
-});
-
-app.get('/articles/:articleName', function(req,res){
-    //var articleName = req.params.articleName;
-    
-    
-    pool.query("SELECT * FROM article WHERE title = $1" + [req.params.articleName], function(err,result){
-        if(err){
-            res.status(500).send(toString());
+            res.status(500).send(err.toString());
+        } else {
+            res.send(JSON.stringify(result.rows));
         }
-        else{
-            if(result.rows.length === 0){
-                res.status(404).send('Article not found');
-            }else{
-                var articleData= result.rows[0];
-                res.send(createTemplate(articleData));
-            }
-        }
-    });
+    }
+    ));
 });
-
-app.get('/ui/style.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'style.css'));
-});
-
-app.get('/ui/main.js', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'main.js'));
-});
-
-
-app.get('/ui/madi2.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi2.png'));
-});
- 
-
-
-// Do not change port, otherwise your app won't run on IMAD servers
-// Use 8080 only for local development if you already have apache running on 80
-
-var port = 80;
-app.listen(port, function () {
-  console.log(`IMAD course app listening on port ${port}!`);
-});
+                    
+}
